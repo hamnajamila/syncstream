@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Board": {
+      "title": "Board",
+      "description": "A collection of tasks for a specific context",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["University", "Home", "Work", "Institute", "Other"] },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "category", "ownerId", "createdAt"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "An individual assignment, meeting, or quiz",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "deadline": { "type": "string", "format": "date-time" },
+        "type": { "type": "string", "enum": ["task", "meeting", "quiz"] },
+        "status": { "type": "string", "enum": ["pending", "completed"] },
+        "priority": { "type": "string", "enum": ["low", "medium", "high", "urgent"] },
+        "ownerId": { "type": "string" },
+        "boardId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "deadline", "type", "status", "ownerId", "boardId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Root collection for user profiles"
+    },
+    "boards/{boardId}": {
+      "schema": "Board",
+      "description": "Collection of boards"
+    },
+    "boards/{boardId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Subcollection of tasks within a board"
+    }
+  }
+}
