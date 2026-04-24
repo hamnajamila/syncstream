@@ -1,8 +1,10 @@
+.env*
+! .env.example
+firebase-*.json
+firestore.rules
+dist/
 node_modules/
 build/
-dist/
 coverage/
 .DS_Store
 *.log
-.env*
-!.env.example
